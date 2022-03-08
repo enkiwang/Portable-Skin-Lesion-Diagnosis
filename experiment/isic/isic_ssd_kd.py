@@ -188,12 +188,12 @@ def cnfg():
     _layer_s = 'feats_7x7'
     _layer_t = 'feats_7x7'
     _lambd = 0.5
-    _lambd_rkd = 3
-    _lambd_crkd = 3000  
+    _lambd_drkd = 1
+    _lambd_crkd = 1000  
     _hr_w = 1
     
     _save_folder = "results/" + _kd_method + "_t_" + _model_name_teacher + "_s_" + _model_name_student + "_fold_" + \
-                    str(_folder) + '_drkd_' + str(_lambd_rkd) + '_crkd_' + str(_lambd_crkd)  + '_hrw_' + str(_hr_w) #+ "_" + str(time.time()).replace('.', '')
+                    str(_folder) + '_drkd_' + str(_lambd_drkd) + '_crkd_' + str(_lambd_crkd)  + '_hrw_' + str(_hr_w) #+ "_" + str(time.time()).replace('.', '')
 
     SACRED_OBSERVER = FileStorageObserver(_save_folder)
     ex.observers.append(SACRED_OBSERVER)
@@ -203,7 +203,7 @@ def main (_folder, _csv_path_train, _imgs_folder_train, _csv_path_test, _imgs_fo
           _sched_min_lr, _sched_patience, _batch_size, _epochs,_epochs_tune,  _early_stop, _weights, 
           _model_name_teacher, _model_name_student,_kd_method,
            _pretrained, _save_folder, _best_metric, _neurons_reducer_block, _comb_method, _comb_config, _use_meta_data,
-           _layer_s, _layer_t, _lambd, _lambd_rkd, _lambd_crkd, _hr_w, _use_wce):
+           _layer_s, _layer_t, _lambd, _lambd_drkd, _lambd_crkd, _hr_w, _use_wce):
     
     if torch.cuda.is_available():
         device = torch.device("cuda:" + str(torch.cuda.current_device()))
@@ -530,8 +530,8 @@ def main (_folder, _csv_path_train, _imgs_folder_train, _csv_path_test, _imgs_fo
     else:
         wce_weight=None
     loss_wce = nn.CrossEntropyLoss(weight=wce_weight).to(device)
-    loss_hr = HRKD_ss(weight=wce_weight, _layers=_layers, module_list=trainable_list_s, lambd=_lambd, 
-                    lambd_rkd=_lambd_rkd, lambd_crkd=_lambd_crkd).to(device)
+    loss_hr = DR(weight=wce_weight, _layers=_layers, module_list=trainable_list_s, lambd=_lambd, 
+                    lambd_rkd=_lambd_drkd, lambd_crkd=_lambd_crkd).to(device)
     ######################################### Start training student ######################################## 
     print("- Starting the training phase...")
     print("-" * 50)
@@ -665,7 +665,7 @@ def main (_folder, _csv_path_train, _imgs_folder_train, _csv_path_test, _imgs_fo
             loss5 = loss_hr(activations_s, activations_t)  
 
             loss = ce_weight * loss1 + kd_weight * loss2 + tf_weight * loss3 + ss_weight * loss4 + \
-                    _hr_w * loss5 #+ _hr_w2 * loss6 
+                    _hr_w * loss5 
 
             loss.backward()
             optimizer.step()

@@ -70,8 +70,8 @@ def cnfg():
     _layer_s = 'feats_7x7'
     _layer_t = 'feats_7x7'
     _lambd = 0.5
-    _lambd_rkd = 1.0
-    _lambd_crkd = 1e4
+    _lambd_drkd = 1.0
+    _lambd_crkd = 1000
     
     _save_folder = "results/" + _kd_method + "_t_" + _model_name_teacher + "_s_" + _model_name_student + "_fold_" + \
                     str(_folder) + '_drkd_' + str(_lambd_drkd) + '_crkd_' + str(_lambd_crkd) #+ "_" + str(time.time()).replace('.', '')
@@ -84,7 +84,7 @@ def main (_folder, _csv_path_train, _imgs_folder_train, _csv_path_test, _imgs_fo
           _sched_min_lr, _sched_patience, _batch_size, _epochs, _early_stop, _weights, 
           _model_name_teacher, _model_name_student,_kd_method,
            _pretrained, _save_folder, _best_metric, _neurons_reducer_block, _comb_method, _comb_config, _use_meta_data,
-           _layer_s, _layer_t, _lambd, _lambd_rkd, _lambd_crkd, _use_wce):
+           _layer_s, _layer_t, _lambd, _lambd_drkd, _lambd_crkd, _use_wce):
 
     if torch.cuda.is_available():
         device = torch.device("cuda:" + str(torch.cuda.current_device()))
@@ -239,8 +239,8 @@ def main (_folder, _csv_path_train, _imgs_folder_train, _csv_path_test, _imgs_fo
     else:
         wce_weight=None
     
-    loss_fn = HRKD(weight=wce_weight, _layers=_layers, module_list=trainable_list, lambd=_lambd, 
-                    lambd_rkd=_lambd_rkd, lambd_crkd=_lambd_crkd).to(device)
+    loss_fn = D_KD(weight=wce_weight, _layers=_layers, module_list=trainable_list, lambd=_lambd, 
+                    lambd_rkd=_lambd_drkd, lambd_crkd=_lambd_crkd).to(device)
 
     ####################################################################################################################   
     print("- Starting the training phase...")
