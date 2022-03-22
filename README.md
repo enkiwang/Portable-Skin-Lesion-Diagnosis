@@ -23,13 +23,13 @@ To train the portable student MobileNet-V2 model, you can choose to use D-KD or 
 ```python
 python3 isic_d_kd.py with '_kd_method="d_kd"' '_lambd_drkd=1' '_lambd_crkd=1000'
 ```
-You can also download our trained student model by D-KD from [Google Drive](https://drive.google.com/file/d/19_78zOfnrfW3C6MDTXNGpaExWbOIHTJT/view?usp=sharing).
+You can also download our trained student model by D-KD from [Google Drive](https://drive.google.com/file/d/1b5Wl3lQM5qmsQvftQjy7aQWN_y5Ha8er/view?usp=sharing).
 
 * For the SSD-KD method, please perform training following a demo,
 ```python
 python3 isic_ssd_kd.py with '_kd_method="ssd_kd"' '_lambd_drkd=1' '_lambd_crkd=1000'
 ```
-You can also download our trained student model by SSD-KD from [Google Drive](https://drive.google.com/file/d/1dXPR_Tvmxpp9UtfNueIXbd8dUt6tHIIv/view?usp=sharing).
+You can also download our trained student model by SSD-KD from [Google Drive](https://drive.google.com/file/d/1UkRX0c2moP906tqcaT9hCiS9WaoWJdld/view?usp=sharing).
 
 If you encounter possible issues regarding this code, please do not hesitate to [contact me](mailto:yongweiw@ece.ubc.ca).
 
