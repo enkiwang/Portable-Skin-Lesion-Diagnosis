@@ -44,7 +44,7 @@ def cnfg():
     _imgs_folder_test = os.path.join(_base_path, "test", "imgs")
 
     _use_meta_data = False 
-    _neurons_reducer_block = 128
+    _neurons_reducer_block = 0
     _comb_method = None 
     _comb_config = None 
     _batch_size = 128 

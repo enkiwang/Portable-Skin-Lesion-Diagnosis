@@ -38,7 +38,12 @@ def get_activation_fn(model_name):
     model_name: name of a model to extract features.
     Return: activation function.
     """
-    activation_fn = extract_feats_resnet50
+    if model_name == 'resnet-50':
+        activation_fn = extract_feats_resnet50
+    elif model_name == 'mobilenet':
+        activation_fn = extract_feats_mobilenet
+    else:
+        raise
     return activation_fn
 
 

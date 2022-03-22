@@ -4,3 +4,6 @@ data/ISIC2019/ISIC_2019_Training_Input/
 experiment/isic/results/
 experiment/my_models/__pycache__/
 experiment/isic/kd_losses/__pycache__/
+experiment/__pycache__/
+experiment/isic/__pycache__/
+experiment/isic/*.pbs
