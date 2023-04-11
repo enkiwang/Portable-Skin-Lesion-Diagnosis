@@ -33,6 +33,22 @@ You can also download our trained student model by SSD-KD from [Google Drive](ht
 
 If you encounter possible issues regarding this code, please do not hesitate to [contact me](mailto:yongweiw@ece.ubc.ca).
 
+
+If you find our code useful in your research, please consider citing our work:
+
+```bib
+@article{wang2023ssd,
+  title={Ssd-kd: A self-supervised diverse knowledge distillation method for lightweight skin lesion classification using dermoscopic images},
+  author={Wang, Yongwei and Wang, Yuheng and Cai, Jiayue and Lee, Tim K and Miao, Chunyan and Wang, Z Jane},
+  journal={Medical Image Analysis},
+  volume={84},
+  pages={102693},
+  year={2023},
+  publisher={Elsevier}
+}
+```
+
+
 ## Acknowledgements
 Many thanks to the following open-sourced repositories that we borrowed which have greatly facilitated our implementations:
 
